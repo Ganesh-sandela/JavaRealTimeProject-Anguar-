@@ -1,0 +1,20 @@
+# Eclipse / IDE
+.metadata/
+.idea/
+.vscode/
+
+# Java / Spring Boot
+target/
+*.class
+
+# Node / React / Angular
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

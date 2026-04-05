@@ -1,0 +1,47 @@
+
+.menu-sidebar-content {
+  width: 220px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* Remove default list style */
+.navbar-list {
+  padding: 0;
+  margin: 0;
+}
+
+/* Each item */
+.navbar-list li {
+  margin: 10px 0;
+}
+
+/* Link style */
+.navbar-list li a {
+  display: block;
+  padding: 12px 15px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  background: #f5f6f7;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+}
+
+/* Hover effect */
+.navbar-list li a:hover {
+  background: linear-gradient(135deg, #2F5F83, #3a7ca5);
+  color: #fff;
+  transform: translateX(5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Active look (optional) */
+.navbar-list li a.active {
+  background: #2F5F83;
+  color: #fff;
+}

@@ -1,0 +1,149 @@
+body{
+    margin: 0;
+    content: 0px;
+    padding: 0%;
+}
+.outercapsule{
+    background-color:  rgb(47, 95, 131);
+    height: 50px;
+    width: 122px;
+    position: relative;
+    left: 850px;
+    top: -30px;
+    border-radius: 50px;
+    /* border:  2px solid red; */
+
+
+    
+}
+.outercapsule:hover{
+  box-shadow: 0 0 10px rgb(45, 99, 140);
+}
+
+.outercapsule>p{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    left: -19px;
+    top: 13px;
+}
+.innercapsule{
+  
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    top: -40px;
+    left: 66px;
+    background-color: #ffffff;
+    border: 2px solid rgb(14, 14, 14);
+    height: 50px;
+    width: 55px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    
+}
+.innercapsule>p{
+  color: black;
+    font-weight: 700px;
+    position: relative;
+    top: 10px;
+}
+a{
+    text-decoration: none;
+}
+.header{
+    background-color: palevioletred;
+    position:relative;
+    top: -10px;
+    left: 250px;
+    height: 80px;
+    width: 1400px;
+    z-index: 1;
+    /* background-color: rgba(255, 0, 0, 0.3); */
+      position:fixed;
+      /* border: 2px solid black; */
+      border-left-width: 110px;   
+}
+#logo{
+    z-index: 1;
+    position: relative;
+    top: 5px;
+    left: -40px;
+    height: 105px;
+   z-index: 100;
+
+}
+#Search{
+height: 50px;
+width: 300px;
+border-radius: 40px;
+position: relative;
+left: 280px;
+border: none;
+position: relative;
+top: 20px;
+
+}
+form{
+    position: relative;
+    left: -200px;
+}
+#Search::placeholder{
+    position: relative;
+    left: 20px;
+    font-size: 15px;
+}
+#submit{
+position: relative;
+left: 300px;
+top: 20px;
+height: 50px;
+width: 120px;
+border-radius: 40px;
+border: none;
+background-color: rgb(47, 95, 131);
+color: #ffffff;
+font-weight: 700;
+font-size: 20px;
+}
+#submit:hover{
+   background-color: rgb(72, 135, 183);
+  
+}
+/* #products{
+    position: relative;
+    left: 0px;
+    top: 10px;
+    border: 2px solid red;
+    width: 1000px;
+    padding-top: 60px;
+} */
+#sidebar{
+    position:fixed;
+    left: 0px;
+}
+/* .navbar-list{
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row: 1fr;
+    row-gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.navbar-list>li{
+border: 2px solid black;
+width: 200px;
+position: relative;
+top: 30px;
+left: 10px;
+padding-left: 60px;
+background-color: wheat;
+}
+.navbar-list>li:hover{
+    
+} */
+
