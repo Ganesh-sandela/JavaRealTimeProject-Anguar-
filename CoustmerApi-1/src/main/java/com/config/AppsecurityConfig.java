@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.jwtfilter.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +22,9 @@ public class AppsecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public BCryptPasswordEncoder pwdencode() {
@@ -43,10 +49,14 @@ public class AppsecurityConfig {
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
+            .authenticationProvider(authprovider())
             .authorizeHttpRequests(req -> req
                 .requestMatchers("/login", "/register", "/resetpwd", "/forgotpwd")
                 .permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // ✅ important
 
         return http.build();
     }

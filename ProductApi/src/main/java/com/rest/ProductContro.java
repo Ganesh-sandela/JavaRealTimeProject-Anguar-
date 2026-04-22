@@ -85,6 +85,8 @@ public class ProductContro {
 	
 	@GetMapping("/productsByName/{productName}")
 	public ResponseEntity<ResponseApi<List<ProductDTO>>> getbyproductsname(@PathVariable String productName){
+		
+		System.out.println(productName);
 		 ResponseApi<List<ProductDTO>> response = new ResponseApi<>();
 		 List<ProductDTO> product = pserv.findByProductsName(productName);
 

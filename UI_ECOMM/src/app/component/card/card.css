@@ -1,0 +1,82 @@
+/* 
+.card{
+
+    border: 2px solid black;
+    height: 300px;
+    z-index: 100;
+    position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+}
+.parent{
+    border: 2px solid red;
+    height: 800px;
+    width: 1040px;
+        z-index: 100;
+        position: relative;
+        left: -80px;
+        top: -850px;
+        background-color:rgb(236, 232, 227) ;
+        background: transparent;
+} */
+
+
+
+
+/* DARK BACKGROUND */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.6); /* dark blur */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+/* POPUP BOX */
+.popup {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 500px;
+
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+
+    animation: popupFade 0.3s ease;
+}
+
+/* CARD INSIDE */
+.card {
+    text-align: center;
+}
+
+/* ANIMATION */
+@keyframes popupFade {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}

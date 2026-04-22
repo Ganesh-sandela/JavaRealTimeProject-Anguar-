@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.ls.LSInput;
 
+import com.DTO.EmailRequest;
 import com.DTO.OrderDTO;
 import com.DTO.PaymentCallBackDTO;
 import com.request.PurchaseOrderRequest;
+import com.response.AdressResponse;
 import com.response.PurchaseOrderResponse;
 import com.responseApi.ResponseApi;
 import com.service.OrderServiceImpl;
 
+import jakarta.mail.Address;
+
 @RestController
+@CrossOrigin(origins = "*")
 public class OrderRestController {
      
 	
@@ -106,4 +112,25 @@ public class OrderRestController {
 			}
 			
 		}
+	@PostMapping("/getdetails")
+	public ResponseEntity<ResponseApi<AdressResponse>> getDetails(@RequestBody EmailRequest request) {
+
+	    ResponseApi<AdressResponse> responseApi = new ResponseApi<>();
+
+	    AdressResponse allDetails = ordserv.getAllDetails(request.getEmail());
+
+	    if (allDetails != null) {
+	        responseApi.setStatuscode(200);
+	        responseApi.setMsg("All details of Customer Fetched...");
+	        responseApi.setData(allDetails);
+
+	        return new ResponseEntity<>(responseApi, HttpStatus.OK); // ✅ correct
+	    } else {
+	        responseApi.setStatuscode(404);
+	        responseApi.setMsg("No data found for this email");
+	        responseApi.setData(null);
+
+	        return new ResponseEntity<>(responseApi, HttpStatus.NOT_FOUND); // ✅ FIX HERE
+	    }
+	}
 }

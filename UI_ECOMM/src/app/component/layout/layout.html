@@ -1,0 +1,42 @@
+<div class="page-wrapper">
+    <!--  menusidebar -->
+    <aside id="sidebar" class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <a [routerLink]="['category',1]">
+                <img id="logo" height="100px" src="../assets/GANA logo.png" alt="logo" class="img-responsive">
+            </a>
+        </div>
+            <app-product-category-menu></app-product-category-menu>
+    </aside>
+
+    <!-- <h1>welcome To E-Commerce Store</h1>
+    <app-product-list></app-product-list> -->
+</div>
+
+<div>
+    <nav class="header">
+       <div><app-search-list></app-search-list></div>
+      <div>
+        <app-cart-status></app-cart-status>
+      </div>
+        <div >
+           <a [routerLink]="['yourorders']" > <i class="fa-solid fa-cart-arrow-down"></i></a>
+        </div>
+    </nav>
+
+</div>
+<div id="products">
+   <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+    <ul>
+        <li><a href="">About</a></li>
+        <li><a href="">Contact</a></li>
+        <li><a href="">Help</a></li>
+    </ul>
+</footer>
+
+
+
+
+<!-- <router-outlet></router-outlet> -->

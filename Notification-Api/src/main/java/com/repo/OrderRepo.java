@@ -16,9 +16,9 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 
 	public List<Order> findByEmail(String email);
 	
-	public List<Order> findByDeliveryDate(LocalDate date);
+	List<Order> findByDeliverydate(LocalDate deliverydate);
 
-	public List<Order> findByDeliveryDateAfter(LocalDate date);
+	List<Order> findByDeliverydateAfter(LocalDate date);
 	
 	public List<Order> findByOrderStatus(String status);
 }

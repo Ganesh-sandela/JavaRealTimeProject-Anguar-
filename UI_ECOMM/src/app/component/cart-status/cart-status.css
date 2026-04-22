@@ -1,0 +1,51 @@
+
+.outercapsule{
+    background-color:  rgb(47, 95, 131);
+    height: 50px;
+    width: 122px;
+    position: relative;
+    left: 840px;
+    top: -30px;
+    border-radius: 50px;
+    /* border:  2px solid red; */
+
+
+    
+}
+.outercapsule:hover{
+  box-shadow: 0 0 10px rgb(45, 99, 140);
+}
+
+.outercapsule>p{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    left: -19px;
+    top: 13px;
+}
+.innercapsule{
+  
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    top: -40px;
+    left: 66px;
+    background-color: #ffffff;
+    border: 2px solid rgb(14, 14, 14);
+    height: 50px;
+    width: 55px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    
+}
+.innercapsule>p{
+  color: black;
+    font-weight: 700px;
+    position: relative;
+    top: 10px;
+}
+a{
+    text-decoration: none;
+}

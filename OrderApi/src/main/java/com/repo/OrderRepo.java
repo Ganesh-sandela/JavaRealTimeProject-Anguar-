@@ -14,4 +14,6 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 	public Order findByRazorPayOrderId(String razorPayOrderId);
 
 	public List<Order> findByEmail(String email);
+	
+	public List<Order> findByAddressId(Long id);
 }

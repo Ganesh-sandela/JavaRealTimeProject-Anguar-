@@ -1,0 +1,56 @@
+<div class="cart-page">
+
+  <!-- LOOP ITEMS -->
+  <div class="cart-item" *ngFor="let item of cartitems">
+
+    <div class="item-left">
+      <img [src]="item.imageUrl" alt="product">
+    </div>
+
+    <div class="item-right">
+      <h3 class="title">{{ item.name }}</h3>
+
+      <p class="price">
+        ₹{{item.unitPrice * item.quantity}}
+      </p>
+
+      <div class="qty-section">
+        <button (click)="decrement(item)">-</button>
+        <span>{{ item.quantity }}</span>
+        <button (click)="increment(item)">+</button>
+      </div>
+
+      <div class="actions">
+        <button class="remove" (click)="remove(item)">Remove</button>
+        <button class="buy">Buy Now</button>
+      </div>
+
+      <div style="margin-left: 250px; margin-top: -120px;">
+        <p>Quantity:{{item.quantity}}</p>
+        <p>ActualPrice:{{item.unitPrice}}</p>
+        <p>Subtotal:{{item.unitPrice*item.quantity}}</p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ MOVE SUMMARY HERE -->
+  <div class="cart-summary" *ngIf="cartitems.length>0">
+    <h3>Price Details</h3>
+    <p>Total Items: {{ totalQuantity }}</p>
+    <h3>Shipping <span>:FREE</span></h3>
+    <h2>Total Amount: ₹{{ totalPrice }}</h2>
+    <button id="btn"> <a [routerLink]="['/products/checkout']">CheckOut</a>
+    </button>
+  </div>
+</div>
+<div>
+
+
+  <!-- EMPTY -->
+  <div style="padding-left: 400px;" *ngIf="cartitems.length === 0" class="empty">
+    <h2>Your cart is empty 😢</h2>
+  </div>
+
+</div>

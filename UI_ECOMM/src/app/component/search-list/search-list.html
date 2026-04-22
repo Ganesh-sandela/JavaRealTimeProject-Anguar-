@@ -1,0 +1,13 @@
+
+        <div class="searchbar">
+                <input #myInput
+             type="search"
+             name="products"
+              placeholder="Search for products..." 
+              id="Search"
+              (keyup)="doSearch(myInput.value)">
+           <button  (click)="doSearch(myInput.value)"
+           id="submit">Search</button>
+
+        </div>
+     

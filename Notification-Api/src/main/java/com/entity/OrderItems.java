@@ -15,15 +15,15 @@ import lombok.Setter;
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Orderitemid;
+	private Long id;
     
-    private String ProductName;
+    private String name;
     
     private int quantity;
     
-    private double unitprice;
+    private double unitPrice;
     
-    private String imageurl;
+    private String imageUrl;
     
    
     
@@ -34,6 +34,10 @@ public class OrderItems {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    
+    @ManyToOne
+    @JoinColumn(name="customer_id")
+    private Customer customer;
     
 	
 }

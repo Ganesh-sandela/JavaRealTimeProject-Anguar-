@@ -1,0 +1,64 @@
+<div class="container">
+    <h3>Reset Password</h3>
+    <p>Please enter your old password reset and set a new password</p>
+    <p style="font-weight: 500;">{{email}}</p>
+    <div class="box">
+
+        <form [formGroup]="resetform" (ngSubmit)="submit()">
+            <span *ngIf="resetform.errors?.['passwordMismatch']">
+                Passwords do not match
+            </span>
+            <div class="input-box">
+                <label for="email">*Email:</label>
+                <input type="email" 
+                 formControlName="email">
+                <div class="error" *ngIf="resetform.controls['email']?.touched && resetform.controls['email']?.invalid">
+                    <span *ngIf="resetform.controls['email'].errors?.['required']">Email is Required</span>
+                    <span *ngIf="resetform.controls['email'].errors?.['email']">Invalid Email</span>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="">PASSWORD RESET PIN</label>
+                <input type="text" formControlName="oldPwd">
+                <div class="error"
+                    *ngIf="resetform.controls['oldPwd']?.invalid && resetform.controls['oldPwd']?.touched">
+                    <span *ngIf="resetform.controls['oldPwd'].errors?.['required']"> Old Password is Required</span>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for=""> NEW PASSWORD </label>
+                <input type="password" formControlName="newPwd">
+                <div class="error"
+                    *ngIf="resetform.controls['newPwd']?.invalid && resetform.controls['newPwd']?.touched">
+                    <span *ngIf="resetform.controls['newPwd'].errors?.['required']"> New Password is Required</span>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label for=""> RE-TYPE NEW PASSWORD </label>
+                <input type="password" formControlName="conformPwd">
+                <div class="error"
+                    *ngIf="resetform.controls['conformPwd']?.invalid && resetform.controls['conformPwd']?.touched">
+                    <span *ngIf="resetform.controls['conformPwd'].errors?.['required']"> Conform Password is
+                        Required</span>
+                    <span *ngIf="resetform.controls['conformPwd'].errors?.['minlength']">
+                        Minimum 8 characters required
+                    </span>
+                    <span *ngIf="resetform.controls['conformPwd'].errors?.['pattern']">
+                        Must contain uppercase, lowercase, number & special character
+                    </span>
+                   
+                </div>
+                <div class="error"> <span *ngIf="mismatchespwd">Password Mismatch...</span></div>
+            </div>
+            <button type="submit" [disabled]="resetform.invalid"> Reset Password</button>
+        </form>
+
+    </div>
+
+    <div class="loader-overlay" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Processing wait....</p>
+    </div>
+
+</div>

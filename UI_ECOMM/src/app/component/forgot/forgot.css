@@ -1,0 +1,130 @@
+
+.box{
+    position: relative;
+    left: 450px;
+    top: -80px;
+  box-shadow: 0 5px 8px rgb(244, 243, 241);
+    width: 390px;
+    height: 400px;
+    border-radius: 10px;
+    background-color: white;
+}
+body {
+  margin: 0;
+}
+.head-box{
+
+    height: 200px;
+    position: relative;
+    background-color: rgb(59, 121, 245);
+}
+.icon {
+  font-size: 50px;
+  color: #1976d2;
+  display: block;
+  text-align: center;
+  padding-top: 30px;
+  margin-left: 140px;
+}
+.content >h4{
+   position: relative;
+   left: 0px;
+   top: 10px;
+}
+.content>p{
+    font-size: 15px;
+    margin-top: 20px;
+}
+.content{
+   text-align: center;
+}
+input{
+    width: 340px;
+    height: 40px;
+   margin-left: -10px;
+   padding-left: 40px;
+}
+.fa-regular{
+    color: black;
+   position: relative;
+   left: 25px;
+   font-size: 20px;
+}
+button{
+    width: 320px;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: rgb(60, 166, 60);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+button:hover{
+    background-color: rgb(79, 174, 79);
+}
+.error {
+  color: #e53935;        /* red text */
+  font-size: 13px;
+  margin-left: 50px;    /* align under input */
+  margin-top: 0px;
+  font-weight: 500;
+}
+/* ❌ Invalid input */
+input.ng-invalid.ng-touched {
+
+ border: 1px solid #e53935;
+}
+.backtologin{
+    position: relative;
+    left: 130px;
+    top: 20px;
+}
+.backtologin a{
+    text-decoration: none;
+}
+#arrow{
+    font-size: 25px;
+    color: rgb(104, 104, 103);
+    padding-top: 20px;
+
+}
+#in{
+
+     color: rgb(104, 104, 103);
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 200;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top: 5px solid #00ff99;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

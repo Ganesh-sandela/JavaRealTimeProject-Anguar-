@@ -2,8 +2,9 @@ package com.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.entity.AddressEntity;
+import com.entity.Address;
 
-public interface AddressEntityRepo extends JpaRepository<AddressEntity, Long> {
+
+public interface AddressEntityRepo extends JpaRepository<Address, Long> {
 
 }

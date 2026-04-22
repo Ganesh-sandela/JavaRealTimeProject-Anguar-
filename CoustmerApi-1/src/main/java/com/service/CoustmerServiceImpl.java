@@ -20,14 +20,16 @@ import com.ModelMapper.CoustmerModelMapper;
 import com.auth.Authresponse;
 import com.dto.CoustmerDTO;
 import com.dto.ResetPwdDTO;
-import com.entity.Coustmer;
+import com.entity.Customer;
+import com.jwt.JwtUtil;
 import com.mail.EmailSender;
 import com.repo.CoustmerRepo;
 
 @Service
 public class CoustmerServiceImpl implements CoustmerService, UserDetailsService {
-
-
+    
+	@Autowired
+    private JwtUtil jwtutil;
 
 	@Autowired
 	private CoustmerRepo crepo;
@@ -58,10 +60,10 @@ public class CoustmerServiceImpl implements CoustmerService, UserDetailsService 
 		
 		String org = generatePWd();
 		String encode = PwdEncode.encode(org);
-		Coustmer entity = CoustmerModelMapper.cvrDtoToEntity(dto);
+		Customer entity = CoustmerModelMapper.cvrDtoToEntity(dto);
 		entity.setOldPwd(encode);
 		entity.setResetPwd("NO");
-		Coustmer save = crepo.save(entity);
+		Customer save = crepo.save(entity);
 		
 		System.out.println("DTO Email: " + dto.getEmail());
 		System.out.println("Entity Email: " + entity.getEmail());
@@ -80,13 +82,13 @@ public class CoustmerServiceImpl implements CoustmerService, UserDetailsService 
 
 	@Override
 	public Boolean isUniqueEmail(String email) {
-		Coustmer c = crepo.findByEmail(email);
+		Customer c = crepo.findByEmail(email);
 		return c == null;
 	}
 
 	@Override
 	public CoustmerDTO getCoustmerByEmail(String email) {
-		Coustmer coustmer = crepo.findByEmail(email);
+		Customer coustmer = crepo.findByEmail(email);
 		if (coustmer != null) {
 			CoustmerDTO dto = CoustmerModelMapper.cvrtEntityToDto(coustmer);
 			return dto;
@@ -97,29 +99,35 @@ public class CoustmerServiceImpl implements CoustmerService, UserDetailsService 
 	@Override
 	public Boolean resetPwd(ResetPwdDTO rdto) {
 	
-		Coustmer c = crepo.findByEmail(rdto.getEmail());
-		c.setOldPwd(rdto.getNewPwd());
+		Customer c = crepo.findByEmail(rdto.getEmail());
+		  String encodedPwd = PwdEncode.encode(rdto.getNewPwd());
+		  System.out.println("88888888888888888888888");
+		  System.out.println(encodedPwd);
+		    c.setOldPwd(encodedPwd);
 		c.setResetPwd("YES");
-		Coustmer save = crepo.save(c);
+		Customer save = crepo.save(c);
 		
 		return save!=null;
 	}
 
 	@Override
 	public Authresponse login(CoustmerDTO dto) {
+		
+		System.out.println("====================="+dto);
 
 	    try {
 	        UsernamePasswordAuthenticationToken token =
 	                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getOldPwd());
 
 	        Authentication authenticate = authmanager.authenticate(token);
-
+                     System.out.println("#@###########"+authenticate);
 	        if (authenticate.isAuthenticated()) {
-	            Coustmer entity = crepo.findByEmail(dto.getEmail());
-
+	            Customer entity = crepo.findByEmail(dto.getEmail());
+                      String  jwt = jwtutil.generateToken(dto.getEmail());
+                      
 	            Authresponse response = new Authresponse();
 	            response.setCoustmerdto(CoustmerModelMapper.cvrtEntityToDto(entity));
-	            response.setToken("dummy-token"); // later JWT
+	            response.setToken(jwt); // later JWT
 
 	            return response;
 	        }
@@ -134,7 +142,7 @@ public class CoustmerServiceImpl implements CoustmerService, UserDetailsService 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		Coustmer c = crepo.findByEmail(email);
+		Customer c = crepo.findByEmail(email);
 		return new User(c.getEmail(), c.getOldPwd(), Collections.emptyList());
 		
 	}
@@ -153,12 +161,17 @@ public class CoustmerServiceImpl implements CoustmerService, UserDetailsService 
 
 	@Override
 	public Boolean forgotPwd(String email) {
-		Coustmer byEmail = crepo.findByEmail(email);
+		Customer byEmail = crepo.findByEmail(email);
 		System.out.println("Email received: " + email);
 		if (byEmail!=null) {
-			
-			String subject="rest Password";
-			String body="Template";
+			String oldPwd = byEmail.getOldPwd();
+			 String pWd = generatePWd();
+			 String encode = PwdEncode.encode(pWd);
+			 System.out.println(encode+"..........");
+			 byEmail.setOldPwd(encode);
+			 crepo.save(byEmail);  
+			String subject="forgot Password";
+			String body="Your Password is "+pWd;
 			 mailsend.mailsend(email, subject, body);
 			return true;	
 		}

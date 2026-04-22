@@ -19,4 +19,7 @@ getproductsCategoryId(categoryid:any):Observable<any>{
 getCategories():Observable<any>{
   return this.http.get(AppConstants.Category_EndPointUrl);
 }
+getByNameProducts(keyword:string):Observable<any>{
+  return this.http.get(`${AppConstants.SearchProduct_EndPointUrl}/${keyword}`);
+}
 }

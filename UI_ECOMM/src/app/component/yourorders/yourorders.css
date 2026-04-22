@@ -1,0 +1,121 @@
+/* PAGE CONTAINER */
+.orders-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+    padding: 20px;
+    background: #f1f3f6;
+    min-height: 100vh;
+    
+    overflow-y: hidden;
+    overflow: hidden;
+    position: absolute;
+    z-index: 3000;
+}
+
+/* TITLE */
+.title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    position: absolute;
+    left: 550px;
+    top: 10px;
+}
+
+/* ORDER CARD */
+.order-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+
+    border: 1px solid #e0e0e0;
+    transition: 0.2s ease;
+}
+
+/* HOVER EFFECT */
+.order-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: scale(1.01);
+}
+
+/* IMAGE */
+.order-img img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* DETAILS */
+.order-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.order-details h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: #212121;
+}
+
+.meta {
+    font-size: 13px;
+    color: gray;
+}
+
+/* STATUS */
+.order-status {
+    text-align: right;
+}
+
+.delivered {
+    font-weight: 500;
+    color: #212121;
+}
+
+/* GREEN DOT */
+.dot {
+    height: 10px;
+    width: 10px;
+    background: green;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.msg {
+    font-size: 12px;
+    color: gray;
+}
+
+.review {
+    display: inline-block;
+    margin-top: 5px;
+    color: #2874f0;
+    cursor: pointer;
+    font-size: 14px;
+}
+button{
+  color:  black;
+  position: relative;
+  left: 1208px;
+  top: -20px;
+height: 40px;
+width: 40px;
+  font-size: 25px;
+
+border:1px solid ;
+}
+button:hover{
+  background-color: red;
+  color:white;
+}

@@ -15,13 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DTO.AddressDTO;
-import com.DTO.CoustmerDTO;
+import com.DTO.CustomerDTO;
+import com.DTO.EmailRequest;
 import com.DTO.OrderDTO;
 import com.DTO.OrderItemsDto;
 import com.DTO.PaymentCallBackDTO;
-import com.entity.AddressEntity;
-import com.entity.Coustmer;
+import com.entity.Address;
+import com.entity.Customer;
 import com.entity.Order;
+import com.entity.OrderItems;
 import com.mailsender.EmailService;
 import com.repo.AddressEntityRepo;
 import com.repo.CoustmerRepo;
@@ -29,6 +31,7 @@ import com.repo.OrderItemsRepo;
 
 import com.repo.OrderRepo;
 import com.request.PurchaseOrderRequest;
+import com.response.AdressResponse;
 import com.response.PurchaseOrderResponse;
 
 import jakarta.transaction.Transactional;
@@ -58,15 +61,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public PurchaseOrderResponse createorder(PurchaseOrderRequest request) {
 
-		CoustmerDTO coustmerDto = request.getCoustmer();
-		AddressDTO addressDto = request.getAddressEntity();
+		CustomerDTO coustmerDto = request.getCustomer();
+		AddressDTO addressDto = request.getAddress();
 		OrderDTO orderDto = request.getOrder();
 		List<OrderItemsDto> orderItemsDtolist = request.getOrderItems();
 
-		Coustmer c = crepo.findByEmail(coustmerDto.getEmail());
+		Customer c = crepo.findByEmail(coustmerDto.getEmail());
 
 		if (c == null) {
-			c = new Coustmer();
+			c = new Customer();
 			c.setName(coustmerDto.getName());
 			c.setEmail(coustmerDto.getEmail());
 			c.setPhno(coustmerDto.getPhno());
@@ -74,12 +77,12 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		// save address
-		AddressEntity address = new AddressEntity();
+		Address address = new Address();
 		address.setHouseno(addressDto.getHouseno());
 		address.setCity(addressDto.getCity());
 		address.setState(addressDto.getState());
 		address.setZipcode(addressDto.getZipcode());
-		address.setCoustmer(c);
+		address.setCustomer(c);
 		addressrepo.save(address);
 
 		// save order
@@ -90,9 +93,9 @@ public class OrderServiceImpl implements OrderService {
 		newOrder.setRazorPayOrderId(paymentOrder.get("id").toString());
 		newOrder.setOrderStatus(paymentOrder.get("status").toString());
 		newOrder.setTotalPrice(orderDto.getTotalPrice());
-		newOrder.setTotalquantity(orderDto.getTotalquantity());
+		newOrder.setTotalQuantity(orderDto.getTotalQuantity());
 		newOrder.setEmail(c.getEmail());
-		newOrder.setCoustmer(c); // associatiom mapping
+		newOrder.setCustomer(c); // associatiom mapping
 		newOrder.setAddress(address); // association mapping
 		ordrepo.save(newOrder);
 
@@ -100,6 +103,8 @@ public class OrderServiceImpl implements OrderService {
 			com.entity.OrderItems orderitems = new com.entity.OrderItems();
 			BeanUtils.copyProperties(itemsDto, orderitems);
 			orderitems.setOrder(newOrder);
+			orderitems.setId(null);
+			orderitems.setCustomer(c);
 			orditemrepo.save(orderitems);
 //			orderitems.setCoustmer(c);
 		}
@@ -156,8 +161,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public PurchaseOrderResponse cancelOrder(Long id) {
 		Order order = ordrepo.findById(id).orElseThrow(() -> new RuntimeException("order not found " + id));
-
-		
 			razorpayservice.refundPayment(order.getRazorPayPaymentId(), order.getTotalPrice());
 			order.setOrderStatus("CANCELLED");
 
@@ -165,7 +168,34 @@ public class OrderServiceImpl implements OrderService {
 			ordrepo.save(order);
 
 		return PurchaseOrderResponse.builder().orderStatus("CANCELLED").orderTrackingNumber(order.getOrderTrackingno())
-				.razorpayorderId(order.getRazorPayOrderId()).build();
+				.razorpayorderId(order.getRazorPayOrderId()).build();  
 	}
 
+	public AdressResponse getAllDetails(String email) {
+		  Customer c = crepo.findByEmail(email);
+		  if (c == null) {
+		        return null; 
+		    }
+
+		  
+		  List<Address> address = addressrepo.findByCustomerId(c.getId());
+		  
+		  List<Order> listorder= new ArrayList<>();
+		  for( Address add:address) {
+			    List<Order> order = ordrepo.findByAddressId(add.getId());
+			    listorder.addAll(order);
+		  }
+		  List<OrderItems> items=new ArrayList<>();
+		  for(Order ord:listorder) {
+			   List<OrderItems> byOrderIdItems = orditemrepo.findByOrderId(ord.getId());
+			   items.addAll(byOrderIdItems);
+		  }
+		
+	return AdressResponse.builder()
+			             .customer(c)
+			             .address(address)
+			             .order(listorder)
+			             .orderItems(items)
+			             .build();
+	}
 }

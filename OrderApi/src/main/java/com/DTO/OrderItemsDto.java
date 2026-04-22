@@ -13,11 +13,11 @@ import lombok.Setter;
 @Data
 public class OrderItemsDto {
 
-	private Long orderitemid;
+	private Long id;
     private int quantity;
-    private double unitprice;
-    private String imageurl;
-    private String productName;
+    private double unitpPrice;
+    private String imageUrl;
+    private String name;
     
   
 }

@@ -1,0 +1,33 @@
+  <div class="head-box"></div>
+ <div class="box">
+<i class="fa-solid fa-circle-exclamation icon"></i>
+        <div class="content">
+            <h4>Forgot Password</h4>
+            <p>Enter Your email and we'll send you a link to reset Your Password</p>
+        </div>
+        <form [formGroup]="forgotform" (ngSubmit)="submit()">
+            <div >
+                 <i class="fa-regular fa-envelope"></i>
+                <input type="email" formControlName="email">
+                <div class="error" 
+                *ngIf="forgotform.controls['email'].invalid && forgotform.controls['email'].touched">
+                <span *ngIf="forgotform.controls['email'].errors?.['required']">Email is required</span>
+                 
+                <span>We Cannot find your email</span>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+
+        </form>
+    <div class="backtologin">
+        <a [routerLink]="['login']">  <span id="arrow"><</span>  <span id="in"> Back to Login </span></a>
+    </div>
+         
+    <div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p> wait.....</p>
+</div>
+    </div>
+
+
+  
