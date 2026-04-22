@@ -11,42 +11,47 @@ import com.razorpay.Refund;
 
 import lombok.SneakyThrows;
 
-
 @Service
-public class RazorpayServiceImpli implements RazorPayService{
+public class RazorpayServiceImpli implements RazorPayService {
 
 	@Value("${razorpay.key.id}")
 	private String razorpaykey;
-	
+
 	@Value("${razorpay.key.secret}")
 	private String razorpaysecret;
-	
-	
+
 	private RazorpayClient client;
-	
+
 	@Override
 	@SneakyThrows
 	public com.razorpay.Order createRazorpayOrder(double Amount) {
-		
-		this.client= new RazorpayClient(razorpaykey,razorpaysecret);
-		JSONObject orderRequest=new JSONObject();
-		orderRequest.put("amount", Amount * 100); //amount in pisa
+
+		this.client = new RazorpayClient(razorpaykey, razorpaysecret);
+
+		int amountInPaise = (int) (Amount * 100);
+
+		if (amountInPaise < 100) {
+			throw new RuntimeException("Amount must be at least ₹1");
+		}
+
+		JSONObject orderRequest = new JSONObject();
+		orderRequest.put("amount", amountInPaise);
 		orderRequest.put("currency", "INR");
 		orderRequest.put("payment_capture", 1);
-	  return client.orders.create(orderRequest);
-	
+
+		return client.orders.create(orderRequest);
 	}
 
 	@Override
 	@SneakyThrows
 	public String refundPayment(String paymentId, Double amount) {
-		this.client= new RazorpayClient(razorpaykey,razorpaysecret);
-		JSONObject refundreq=new JSONObject();
-		refundreq.put("payment_id",paymentId);
+		this.client = new RazorpayClient(razorpaykey, razorpaysecret);
+		JSONObject refundreq = new JSONObject();
+		refundreq.put("payment_id", paymentId);
 		refundreq.put("amount", amount);
-		
+
 		Refund refund = client.payments.refund(refundreq);
 		return refund.get("id");
 	}
-	
+
 }

@@ -22,7 +22,7 @@ private Long orderid;
 	
 	private double totalPrice;
 	
-	private int totalquantity;
+	private int totalQuantity;
 	
 	private String razorPayPaymentId;
 	

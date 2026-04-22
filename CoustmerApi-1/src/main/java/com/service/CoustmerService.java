@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.auth.Authresponse;
 import com.dto.CoustmerDTO;
 import com.dto.ResetPwdDTO;
-import com.entity.Coustmer;
 
 @Service
 public interface CoustmerService {

@@ -1,0 +1,133 @@
+body{
+    margin: 0;
+    content: 0px;
+    padding: 0%;
+    cursor:progress ;
+}
+.header{
+    background-color: palevioletred;
+    position:relative;
+    top: -10px;
+    left: 250px;
+    height: 80px;
+    width: 1400px;
+    z-index: 1;
+      position:fixed;
+      border-left-width: 110px;   
+}
+#logo{
+    z-index: 1;
+    position: relative;
+    top: -10px;
+    left: -40px;
+    height: 105px;
+   z-index: 100;
+
+}
+#Search{
+height: 50px;
+width: 300px;
+border-radius: 40px;
+position: relative;
+left: 280px;
+border: none;
+position: relative;
+top: 20px;
+
+}
+form{
+    position: relative;
+    left: -200px;
+}
+#Search::placeholder{
+    position: relative;
+    left: 20px;
+    font-size: 15px;
+}
+#submit{
+position: relative;
+left: 300px;
+top: 20px;
+height: 50px;
+width: 120px;
+border-radius: 40px;
+border: none;
+background-color: rgb(47, 95, 131);
+color: #ffffff;
+font-weight: 700;
+font-size: 20px;
+}
+#submit:hover{
+   background-color: rgb(72, 135, 183);
+  
+}
+#sidebar{
+    position:fixed;
+    left: 0px;
+}
+.fa-solid{
+  font-size: 30px;
+  color: white;
+  position: relative;
+  top: -70px;
+  left: 965px;
+cursor:pointer;  
+}
+.footer{
+    background-color: black;
+    list-style: none;
+    font-weight: 700;
+    display: grid;
+    grid-template-rows: 1fr;
+    position: relative;
+    align-items: center;
+    top: 540px;
+  
+}
+ul{
+    list-style: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 500px;
+    position: relative;
+    left: 380px;
+}
+.footer>ul>li>a{
+    color: white;
+    text-decoration: none;
+}
+
+/* #products{
+    position: relative;
+    left: 0px;
+    top: 10px;
+    border: 2px solid red;
+    width: 1000px;
+    padding-top: 60px;
+} */
+
+/* .navbar-list{
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row: 1fr;
+    row-gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.navbar-list>li{
+border: 2px solid black;
+width: 200px;
+position: relative;
+top: 30px;
+left: 10px;
+padding-left: 60px;
+background-color: wheat;
+}
+.navbar-list>li:hover{
+    
+} */
+

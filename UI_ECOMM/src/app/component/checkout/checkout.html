@@ -1,0 +1,207 @@
+<div class="checkout-container">
+    <form [formGroup]="checkoutform" (ngSubmit)="onSubmit()">
+
+        <!-- Customer -->
+        <div class="section" formGroupName="customer">
+            <h3>Customer Details</h3>
+
+            <div class="form-row">
+                <label>Name</label>
+                <input type="text" formControlName="name">
+
+            </div>
+            <div class="error"
+                *ngIf="checkoutform.get('customer.name')?.invalid && checkoutform.get('customer.name')?.touched">
+                <span *ngIf="customer.get('name').errors?.['required']">Name is required</span>
+                <span *ngIf="customer.get('name').errors?.['minlength']">Minimum 3 characters</span>
+            </div>
+
+            <div class="form-row">
+                <label>Email</label>
+                <input type="email" formControlName="email">
+            </div>
+            <div class="error" *ngIf="customer.get('email')?.touched && customer.get('email')?.invalid ">
+                <span *ngIf="customer.get('email').errors?.['required']">Email is required</span>
+                <span *ngIf="customer.get('email').errors?.['email']"> Invalid email</span>
+            </div>
+
+            <div class="form-row">
+                <label>Phone No</label>
+                <input type="tel" formControlName="phno">
+            </div>
+            <div class="error" *ngIf="customer.get('phno')?.invalid && customer.get('phno')?.touched">
+                <span *ngIf="customer.get('phno').errors?.['required']">Phono is required</span>
+                <span *ngIf="customer.get('phno')?.errors?.['pattern']">Enter valid 10-digit number</span>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="section" formGroupName="address">
+            <h3>Shipping Address</h3>
+
+            <div class="form-row">
+                <label>House Number</label>
+                <input type="text" formControlName="houseno">
+            </div>
+            <div class="error" *ngIf="address.get('houseno')?.touched && address.get('houseno')?.invalid">
+                <span *ngIf="address.get('houseno').errors?.['required']"> house no required</span>
+                <span *ngIf="address.get('houseno')?.errors?.['pattern']">Invalid format (ex: 12A/3)</span>
+            </div>
+
+            <div  class="form-row">
+                <label>City</label>
+                <input type="text" formControlName="city">
+            </div>
+
+            <div class="error" *ngIf="address.get('city')?.touched && address.get('city')?.invalid">
+                <span *ngIf="address.get('city')?.errors?.['required']">City required</span>
+            </div>
+            <div class="form-row">
+                <label>State</label>
+                <input type="text" formControlName="state">
+            </div>
+            <div class="error" *ngIf="address.get('state')?.touched && address.get('state')?.invalid">
+                <span *ngIf="address.get('state')?.errors?.['required']">State required</span>
+            </div>
+            <div class="form-row">
+                <label>Zip Code</label>
+                <input type="text" formControlName="zipcode">
+            </div>
+            <div class="error" *ngIf="address.get('zipcode')?.touched && address.get('zipcode')?.invalid">
+                <span *ngIf="address.get('zipcode')?.errors?.['required']">Zipcode required</span>
+                <span *ngIf="address.get('zipcode')?.errors?.['pattern']">Must be 6 digits</span>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="section summary">
+            <h3>Review Your Order</h3>
+
+            <div class="summary-row">
+                <span>Total Quantity</span>
+                <span>{{totalQuantity}}</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>FREE</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Total Price</span>
+                <span>₹{{totalPrice}}</span>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="text-center">
+            <button type="submit" class="btn">Purchase</button>
+        </div>
+
+    </form>
+    <div class="address-container">
+  <h2>Your Addresses</h2>
+
+  <div class="address-card" *ngFor="let adr of addresses">
+    
+    <div class="address-info">
+      <p class="name">
+        {{ adr?.customer?.name }}
+        <span class="zipcode">- {{ adr?.zipcode }}</span>
+      </p>
+
+      <p class="full-address">
+        {{ adr?.houseno }}, {{ adr?.city }}, {{ adr?.state }}
+      </p>
+    </div>
+
+    <button class="use-btn" (click)="patchAdr(adr)">
+      Use This Address
+    </button>
+
+  </div>
+  <div *ngIf="addresses.length === 0">
+  No addresses found
+</div>
+</div>
+<!-- <div  *ngIf="orderStatusValue">
+
+  
+  <app-card 
+   
+    [orderStatus]="orderStatusValue"
+    [orderTrackingNumber]="orderTrackingNumberValue"
+    [razorpayorderId]="razorpayorderIdValue">
+  </app-card>
+</div> -->
+
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Processing Payment...</p>
+</div>
+
+<div class="overlay" *ngIf="orderStatusValue">
+   <div class="popup">  <button (click)="closebtn()" class="close-btn">X</button>
+     <h3 >YourOrder ...✅</h3>
+    <h3>{{orderStatusValue}}</h3>
+    <h3>{{orderTrackingNumberValue}}</h3>
+    <h3>{{razorpayorderIdValue}}</h3>
+   </div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- 
+
+
+
+
+
+[
+    {
+        "city": "VLP",
+        "customer": {
+            "conformPwd": null,
+            "createdDate": "2026-04-19T18:30:00.000Z",
+            "email": "sandelaganesh57@gmail.com",
+            "id": 1,
+            "lastUpdated": "2026-04-19T18:30:00.000Z",
+            "name": "Ganesh",
+            "newPwd": null,
+            "oldPwd": "$2a$10$5q0kUXuFTrkrw4KpNR61Uuyvg0kufI7HXLlxMTu8k0puXfuMpDuBa",
+            "phno": 9581288259,
+            "resetPwd": "YES"
+        },
+        "houseno": "3",
+        "id": 1,
+        "state": "TG",
+        "zipcode": "505453"
+    },
+    {
+        "city": "VLP",
+        "customer": {
+            "conformPwd": null,
+            "createdDate": "2026-04-19T18:30:00.000Z",
+            "email": "sandelaganesh57@gmail.com",
+            "id": 1,
+            "lastUpdated": "2026-04-19T18:30:00.000Z",
+            "name": "Ganesh",
+            "newPwd": null,
+            "oldPwd": "$2a$10$5q0kUXuFTrkrw4KpNR61Uuyvg0kufI7HXLlxMTu8k0puXfuMpDuBa",
+            "phno": 9581288259,
+            "resetPwd": "YES"
+        },
+        "houseno": "3",
+        "id": 4,
+        "state": "TG",
+        "zipcode": "505453"
+    }
+] -->

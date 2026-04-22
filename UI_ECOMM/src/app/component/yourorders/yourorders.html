@@ -1,0 +1,32 @@
+<div class="orders-container">
+
+    <button class="close" (click)="onClick()">X</button>
+  <h2 class="title">Your Orders</h2>
+
+  <div class="order-card" *ngFor="let ord of order$ | async">
+
+    <!-- LEFT: IMAGE -->
+    <div class="order-img">
+      <img [src]="ord.image" alt="product">
+    </div>
+
+    <!-- MIDDLE: DETAILS -->
+    <div class="order-details">
+      <h3>{{ ord.name }}</h3>
+      <p class="price">₹{{ ord.price }}</p>
+      <p class="meta">Color: Black</p>
+    </div>
+
+    <!-- RIGHT: STATUS -->
+    <div class="order-status">
+      <p class="delivered">
+        <span class="dot"></span>
+        Delivered on Jun 18, 2025
+      </p>
+      <p class="msg">Your item has been delivered</p>
+      <span class="review">★ Rate & Review Product</span>
+    </div>
+
+  </div>
+
+</div>

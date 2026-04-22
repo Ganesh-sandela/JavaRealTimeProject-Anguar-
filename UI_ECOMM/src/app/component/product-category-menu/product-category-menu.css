@@ -45,3 +45,12 @@
   background: #2F5F83;
   color: #fff;
 }
+#sidebar{  
+  height: 500px;
+  margin-top: -10px;
+  border-top-left-radius: 0%;
+  border-top-right-radius: 0%;
+  border-bottom-left-radius:0%;
+  border-bottom-right-radius:0%;
+
+}

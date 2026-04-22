@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.entity.Address;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long orderid;
+	private Long id;
 
 	private String orderTrackingno;
 
@@ -36,27 +38,27 @@ public class Order {
 
 	private double totalPrice;
 
-	private int totalquantity;
+	private int totalQuantity;
 
 	private String razorPayPaymentId;
 
-	private String invoiceUrl;
+	private String invoiceurl;
 	
 	private String paymentStatus;
 
-	@Column(name = "deliveryDate")
-	private LocalDate deliveryDate;
+	@Column(name = "deliverydate")
+	private LocalDate deliverydate;
      @CreationTimestamp
 	private LocalDate dateCreated;
     @UpdateTimestamp
 	private LocalDate lastUpdated;
 
 	@ManyToOne
-	@JoinColumn(name = "coustmer_id")
-	private Coustmer coustmer;
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 
 	@ManyToOne
-	@JoinColumn(name = "addr_id")
-	private AddressEntity address;
+	@JoinColumn(name = "address_id")
+	private Address address;
 
 }

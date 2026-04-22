@@ -1,0 +1,88 @@
+<div class="main">
+  <div class="container">
+
+
+    <div class="profile-icon">
+      <div class="head"></div>
+      <div class="body">
+        <div class="line"></div>
+      </div>
+
+    </div>
+    <p class="NAME">CUSTOMER LOGIN</p>
+
+
+
+    <form [formGroup]="loginform" (ngSubmit)="onsubmit()">
+      
+    <div class="error" *ngIf="loginform.errors?.['invalidcreditionals']">
+      <p >Invalid Creditionals</p>
+    </div>
+
+      <!-- Email -->
+
+      <div class="input-box">
+        <i class="fa-regular fa-envelope"></i>
+        <input type="email" required formControlName="email">
+        <label>Email ID</label>
+      </div>
+      <div class="error" *ngIf="loginform.controls['email']?.invalid && loginform.controls['email']?.touched">
+
+        <span *ngIf="loginform.controls['email'].errors?.['required']">
+          Email is required
+        </span>
+
+        <span *ngIf="loginform.controls['email'].errors?.['email']">
+          Invalid email
+        </span>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <div class="input-box">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" required formControlName="pwd">
+          <label>Password</label>
+        </div>
+
+        <div class="error" *ngIf="loginform.controls['pwd']?.invalid && loginform.controls['pwd']?.touched">
+
+          <span *ngIf="loginform.controls['pwd'].errors?.['required']">
+            Password is required
+          </span>
+
+          <span *ngIf="loginform.controls['pwd'].errors?.['minlength']">
+            Minimum 8 characters required
+          </span>
+
+          <span *ngIf="loginform.controls['pwd'].errors?.['pattern']">
+            Must contain uppercase, lowercase, number & special character
+          </span>
+
+        </div>
+
+
+      </div>
+
+      <div>
+        <div class="checkbox">
+          <input type="checkbox"> <span> Remember me</span>
+          <a [routerLink]="['/forgot']">
+            <i class="fa fa-key"></i>  <span><em>Forgot password?</em></span>
+          </a>
+        </div>
+      </div>
+
+      <button type="submit">Login</button>
+
+    </form>
+  </div>
+
+  <div class="register">
+   <a [routerLink]="['/register']"> or Get Registered</a>
+  </div>
+   <div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Processing wait....</p>
+</div>
+</div>

@@ -4,8 +4,8 @@ package com.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.entity.ProductCategeroy;
+import com.entity.ProductCategory;
 
-public interface ProductCategeoryRepo extends JpaRepository<ProductCategeroy, Long> {
+public interface ProductCategeoryRepo extends JpaRepository<ProductCategory, Long> {
 
 }

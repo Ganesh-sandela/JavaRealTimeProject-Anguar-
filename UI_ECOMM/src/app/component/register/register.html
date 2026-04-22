@@ -1,0 +1,57 @@
+<div class="body">
+
+    <div class="image">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4eyIoGTaUQkt-IH1HMHBqEh6JUTJ0-TRb4A&s"
+            alt="E-Commerce">
+    </div>
+    <div class="signup">
+
+        <p id="name">Registration</p><span id="nm"> Form</span>
+        <div class="box">
+            <form [formGroup]="signup" (ngSubmit)="submit()">
+                <p class="error"><span *ngIf="signup.get('email')?.hasError('EmailNotUnique')">already have an account?</span></p>
+                <div>
+                    <label for="name">*Name:</label>
+                    <input type="text" formControlName="name">
+                    <div class="error" *ngIf="signup.controls['name']?.invalid && signup.controls['name']?.touched">
+                        <span *ngIf="signup.controls['name'].errors?.['required']">Name is Required</span>
+                        <span *ngIf="signup.controls['name'].errors?.['minlength']">Min length Required</span>
+                    </div>
+                </div>
+
+                <div>
+
+
+                    <label for="email">*Email:</label>
+                    <input type="email" formControlName="email">
+
+                    <div class="error" *ngIf="signup.controls['email']?.touched && signup.controls['email']?.invalid">
+                        <span *ngIf="signup.controls['email'].errors?.['required']">Email is Required</span>
+                        <span *ngIf="signup.controls['email'].errors?.['email']">Invalid Email</span>
+                        <span *ngIf="signup.get('email')?.hasError('EmailNotUnique')">already have an account?</span>
+                    </div>     
+                </div>
+
+                <div>
+                    <label for="phone">*Phone:</label>
+                    <input type="tel" formControlName="phno">
+                    <div class="error" *ngIf="signup.controls['phno']?.touched && signup.controls['phno']?.invalid">
+                        <span *ngIf="signup.controls['phno']?.errors?.['required']">Phone is Required</span>
+                        <span *ngIf="signup.controls['phno']?.errors?.['pattern']">Invalid Phone</span>
+                    </div>
+                </div>
+                <button [disabled]="isLoading" type="submit">{{isLoading?'Processing':"register"}}</button>
+            </form>
+            <hr>
+            <p id="login"><a [routerLink]="['/login']">already have an account?</a></p>
+            
+            <p id="login" class="resetpage"><a [routerLink]="['/resetPwd']">password reset?</a></p>
+        </div>
+    </div>
+
+    <div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Processing wait....</p>
+</div>
+
+</div>

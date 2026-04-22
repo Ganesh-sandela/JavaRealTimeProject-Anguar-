@@ -22,7 +22,7 @@ ngOnInit(): void {
 getallcategeories(){
 this.productservice.getCategories().subscribe((data)=>{
   this.category=data.data;
-  console.log("hiiiiiiiiiiiii",this.category)
+
  this.cd.detectChanges();
 })
 }

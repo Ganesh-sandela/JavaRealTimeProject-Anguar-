@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.responseApi.ResponseApi;
 import com.service.CoustmerServiceImpl;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CoustmerContro {
 
 	
@@ -32,68 +34,120 @@ public class CoustmerContro {
 	@PostMapping("/register")
 	public ResponseEntity<ResponseApi<String>> register(@RequestBody CoustmerDTO dto) {
 
-		ResponseApi<String> Response = new ResponseApi<>();
-		Boolean uniqueEmail = cserv.isUniqueEmail(dto.getEmail());
-		if (!uniqueEmail) {
-			Response.setStatuscode(400);
-			Response.setMsg("failed");
-			Response.setData("Duplicate Email");
-			return new ResponseEntity<>(Response, HttpStatus.BAD_REQUEST);
-		}
+	    ResponseApi<String> response = new ResponseApi<>();
+	    System.out.println(dto.getEmail()+"==================email");
 
-		Boolean register = cserv.register(dto);
-		if (register) {
-			Response.setStatuscode(200);
-			Response.setMsg("succesfully registration completed...");
-			Response.setData("registration succes");
-		} else {
-			Response.setStatuscode(500);
-			Response.setMsg("  failed...");
-			Response.setData("registration Failed");
-		}
-		return new ResponseEntity<ResponseApi<String>>(Response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    Boolean uniqueEmail = cserv.isUniqueEmail(dto.getEmail());
+
+	    if (!uniqueEmail) {
+	        response.setStatuscode(400);
+	        response.setMsg("failed");
+	        response.setData("Duplicate Email");
+
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+	    Boolean register = cserv.register(dto);
+
+	    if (register) {
+	        response.setStatuscode(200);
+	        response.setMsg("Successfully registration completed");
+	        response.setData("Registration success");
+
+	        return new ResponseEntity<>(response, HttpStatus.OK);  // ✅ FIX
+	    } else {
+	        response.setStatuscode(500);
+	        response.setMsg("failed");
+	        response.setData("Registration Failed");
+
+	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR); // ✅ FIX
+	    }
 	}
 
+//	@PostMapping("/resetpwd")
+//	public ResponseEntity<ResponseApi<String>> resetPwd(@RequestBody ResetPwdDTO resetPwdDto) {
+//		ResponseApi<String> response = new ResponseApi<>();
+//		CoustmerDTO c = cserv.getCoustmerByEmail(resetPwdDto.getEmail());
+//		System.out.println(c.getName());
+//
+//		if (!Pwdencode.matches(resetPwdDto.getOldPwd(), c.getOldPwd())) {
+//			response.setStatuscode(400);
+//			response.setMsg("Failed");
+//			response.setData("old pwd is incorrect");
+//			return new ResponseEntity<ResponseApi<String>>(response, HttpStatus.BAD_REQUEST);
+//
+//		}
+////	        resetPwdDto.getNewPwd().equals(resetPwdDto.getConformPwd());
+////	        if (resetPwdDto.getNewPwd().equals(resetPwdDto.getConformPwd())) {
+////				String oldPwd = resetPwdDto.getOldPwd();
+////				String dtoPwd = Pwdencode.encode(oldPwd);
+////				String entityPwd = c.getOldPwd();
+////				if (dtoPwd.equals(entityPwd)) {
+////					cserv.resetPwd(resetPwdDto);
+////				}
+//
+//		boolean isResetCompleted = cserv.resetPwd(resetPwdDto);
+//		if (isResetCompleted) {
+//			response.setStatuscode(200);
+//			response.setMsg("Pwd Updated");
+//			return new ResponseEntity<>(response, HttpStatus.OK);
+//		} else {
+//			response.setStatuscode(500);
+//			response.setMsg("Reset Pwd Failed");
+//			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
+
+	
 	@PostMapping("/resetpwd")
 	public ResponseEntity<ResponseApi<String>> resetPwd(@RequestBody ResetPwdDTO resetPwdDto) {
-		ResponseApi<String> response = new ResponseApi<>();
-		CoustmerDTO c = cserv.getCoustmerByEmail(resetPwdDto.getEmail());
 
-		if (!Pwdencode.matches(resetPwdDto.getOldPwd(), c.getOldPwd())) {
-			response.setStatuscode(400);
-			response.setMsg("Failed");
-			response.setData("old pwd is incorrect");
-			return new ResponseEntity<ResponseApi<String>>(response, HttpStatus.BAD_REQUEST);
+	    ResponseApi<String> response = new ResponseApi<>();
 
-		}
-//	        resetPwdDto.getNewPwd().equals(resetPwdDto.getConformPwd());
-//	        if (resetPwdDto.getNewPwd().equals(resetPwdDto.getConformPwd())) {
-//				String oldPwd = resetPwdDto.getOldPwd();
-//				String dtoPwd = Pwdencode.encode(oldPwd);
-//				String entityPwd = c.getOldPwd();
-//				if (dtoPwd.equals(entityPwd)) {
-//					cserv.resetPwd(resetPwdDto);
-//				}
+	    CoustmerDTO c = cserv.getCoustmerByEmail(resetPwdDto.getEmail());
 
-		boolean isResetCompleted = cserv.resetPwd(resetPwdDto);
-		if (isResetCompleted) {
-			response.setStatuscode(200);
-			response.setMsg("Pwd Updated");
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} else {
-			response.setStatuscode(500);
-			response.setMsg("Reset Pwd Failed");
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	    if (c == null) {
+	        response.setStatuscode(404);
+	        response.setMsg("User not found");
+	        response.setData("Invalid email");
+	        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	    }
+
+	    if (!Pwdencode.matches(resetPwdDto.getOldPwd(), c.getOldPwd())) {
+	        response.setStatuscode(400);
+	        response.setMsg("Failed");
+	        response.setData("Old password is incorrect");
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+	    
+	    if (!resetPwdDto.getNewPwd().equals(resetPwdDto.getConformPwd())) {
+	        response.setStatuscode(400);
+	        response.setMsg("Failed");
+	        response.setData("New password and confirm password do not match");
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+	    boolean isResetCompleted = cserv.resetPwd(resetPwdDto);
+
+	    if (isResetCompleted) {
+	        response.setStatuscode(200);
+	        response.setMsg("Password Updated");
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    } else {
+	        response.setStatuscode(500);
+	        response.setMsg("Reset Password Failed");
+	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
-
+	
 	@PostMapping("/login")
 	public ResponseEntity<ResponseApi<Authresponse>> login(@RequestBody CoustmerDTO dto) {
 
 		ResponseApi<Authresponse> response = new ResponseApi<>();
 
 		Authresponse login = cserv.login(dto);
-
+   System.out.println("*************"+login);
 		if (login != null) {
 			response.setStatuscode(200);
 			response.setMsg("Login Success");

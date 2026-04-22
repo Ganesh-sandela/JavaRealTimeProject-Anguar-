@@ -2,7 +2,8 @@ package com.entity;
 
 import java.math.BigDecimal;
 import java.sql.DatabaseMetaData;
-import java.sql.Date;
+
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Products {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
 
 	private String description;
@@ -40,5 +42,5 @@ public class Products {
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
-	private ProductCategeroy category;
+	private ProductCategory category;
 }

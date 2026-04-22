@@ -1,0 +1,252 @@
+
+/* Button */
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+/* Center */
+.text-center {
+  text-align: center;
+}
+.error {
+  color: #e53935;        /* red text */
+  font-size: 15px;
+  margin-left: 50px;    /* align under input */
+  margin-top: -20px;
+  font-weight: 500;
+}
+/* ❌ Invalid input */
+input.ng-invalid.ng-touched {
+
+ border-bottom: 2px solid #e53935;
+}
+
+
+input {
+  transition: all 0.3s ease;
+}
+
+input:focus{
+  border: none;
+  background: transparent;
+  
+}
+
+
+
+.error {
+  margin-bottom: 10px;
+}
+/* input.ng-invalid.ng-touched {
+  border-left: 4px solid #e53935;
+} */
+.container{
+ padding-left: 400px;
+ padding-top: 200px;
+ color: white;
+}
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: relative;
+  left: 200px;
+  top: -70px;
+  color: white;
+    background-color: #0B3A6E;
+}
+
+.head {
+  width: 25px;
+  height: 25px;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);  color: white;
+}
+
+.body {
+  width: 40px;
+  height: 20px;
+  border: 3px solid white;
+  border-top: none;
+  border-radius: 0 0 40px 40px;
+  position: absolute;
+  bottom: 25px;
+  left: 18px;
+ 
+  transform: rotate(180deg);   color: white;
+}
+.line{
+
+
+  border-bottom: 3px solid white;
+  width: 38px;   color: white;
+}
+.main{
+  height: 580px;
+  width: 100%;
+  overflow-y: hidden;
+
+background: linear-gradient(to bottom right, #8fb3dc, #4a7fbe, #123f75);
+}
+.NAME{
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  padding-left: 100px;
+padding-top: -50px;
+margin-top: -50px;
+}
+input{width: 350px;
+  height: 50px;
+  background: transparent;
+border: none;
+  border-bottom: 2px solid #f1fff5;
+  outline: none;
+
+}
+button {
+  background-color: #0B3A6E;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 360px;
+  letter-spacing: 2px;
+  margin-top: 30px;
+}
+button:hover{
+  background-color: #1d4f89;
+}
+.icon {
+  color: white;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.top-icon {
+  font-size: 30px;
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 15px;
+}
+label{
+  padding-left: 30px;
+}.input-box {
+  position: relative;
+  margin: 25px 0;
+  width: 350px;
+}
+
+/* ICON */
+.input-box i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+}
+
+/* INPUT */
+.input-box input {
+  width: 100%;
+  height: 70px;
+  padding-left: 30px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+}
+
+/* LABEL */
+.input-box label {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  transition: 0.3s;
+}
+
+/* ANIMATION */
+.input-box input:focus + label,
+.input-box input:valid + label {
+  top: -5px;
+  font-size: 12px;
+}
+.checkbox input[type=checkbox]{
+  background: transparent;
+  height: 16px;
+  width: 16px;
+}
+
+.checkbox i{
+  margin-left: 100px;
+}
+form{
+  margin-left: 80px;
+}
+.container{
+ margin-left: -30px;
+ margin-top: -100px;
+}
+.checkbox a{
+  text-decoration: none;
+  color: white;
+}
+.register{
+  color: white;
+  position: relative;
+  left: 550px;
+  top: 10px;
+}
+.register a{
+  color: white;
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 200;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top: 5px solid #00ff99;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import com.Data.WattiParameter;
 import com.Data.WattiRequest;
 import com.Data.WattiResponse;
-import com.entity.Coustmer;
+import com.entity.Customer;
 import com.entity.Order;
 import com.mailsender.EmailService;
 import com.repo.OrderRepo;
@@ -48,17 +48,17 @@ public class NotifictionServiceImpl implements NotificationService {
 	@Override
 	@Scheduled(cron="0 7 * * * * ")		
 	public Integer sendDeliveryNotification() {
-		List<Order> orders = ordRepo.findByDeliveryDate(LocalDate.now());
+		List<Order> orders = ordRepo.findByDeliverydate(LocalDate.now());
 
 		for (Order order : orders) {
-			Coustmer coustmer = order.getCoustmer();
-			sendNotificationEmail(coustmer.getEmail(), order.getOrderTrackingno());
-			wattiNotification(coustmer, order.getOrderTrackingno());
+			Customer customer = order.getCustomer();
+			sendNotificationEmail(customer.getEmail(), order.getOrderTrackingno());
+			wattiNotification(customer, order.getOrderTrackingno());
 		}
 		return orders.size();
 	}
 
-	private WattiResponse wattiNotification(Coustmer coustmer, String orderTrackingNo) {
+	private WattiResponse wattiNotification(Customer coustmer, String orderTrackingNo) {
         
     	String apiurl=endpoinurl +"?whatsappNumber="+coustmer.getPhno();
     	
@@ -110,9 +110,9 @@ public class NotifictionServiceImpl implements NotificationService {
 	}
 	@Override
 	public String sendPendingDeliveryNotification() {
-	List<Order> orders = ordRepo.findByDeliveryDateAfter(LocalDate.now());
+	List<Order> orders = ordRepo.findByDeliverydateAfter(LocalDate.now());
 	      for(Order order:orders) {
-	    	  Coustmer coustmer = order.getCoustmer();
+	    	  Customer coustmer = order.getCustomer();
 	    	  sendPendingdeliveryEmail(coustmer.getEmail(),order.getOrderTrackingno());
 	    	  wattiNotification(coustmer, order.getOrderTrackingno());
 	      }
@@ -129,7 +129,7 @@ public class NotifictionServiceImpl implements NotificationService {
 	public List<Order> sendNotificationToPendingOrders() {
 		List<Order> orders = ordRepo.findByOrderStatus("created");
 		for(Order order:orders) {
-			Coustmer coustmer = order.getCoustmer();
+			Customer coustmer = order.getCustomer();
 			EmailToPendingOrdersStatus(coustmer.getEmail(), order.getOrderTrackingno());
 //			wattiNotification(coustmer, order.getOrderTrackingno());
 		}

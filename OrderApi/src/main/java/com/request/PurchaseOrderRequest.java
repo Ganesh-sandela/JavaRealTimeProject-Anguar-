@@ -3,11 +3,10 @@ package com.request;
 import java.util.List;
 
 import com.DTO.AddressDTO;
-import com.DTO.CoustmerDTO;
+import com.DTO.CustomerDTO;
 import com.DTO.OrderDTO;
 import com.DTO.OrderItemsDto;
-import com.entity.AddressEntity;
-import com.entity.Coustmer;
+import com.entity.Address;
 import com.entity.Order;
 
 import lombok.Data;
@@ -16,11 +15,11 @@ import lombok.Data;
 public class PurchaseOrderRequest {
 
 	
-	private CoustmerDTO coustmer;
+	private CustomerDTO customer;
 	
 	private OrderDTO order;
 	
-	private AddressDTO addressEntity;
+	private AddressDTO address;
 	
 	private List<OrderItemsDto> orderItems;
 	
